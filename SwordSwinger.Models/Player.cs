@@ -16,7 +16,7 @@ namespace SwordSwinger.Models
 		public int MaxHealth { get; set; }
 		public int Experience { get; set; }
 		public int Level { get; set; }
-		public int CriticalStrikeChange { get; set; }
+		public int CriticalStrikeChance { get; set; }
 
 		public void DoDamage(int weapnDmg)
 		{

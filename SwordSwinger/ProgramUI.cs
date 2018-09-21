@@ -10,8 +10,8 @@ namespace SwordSwinger
 {
 	public class ProgramUI
 	{
-		private readonly WeaponRepository _weaponRepo = new WeaponRepository();
-		private readonly PlayerRepository _playerRepo = new PlayerRepository();
+		private WeaponRepository _weaponRepo = new WeaponRepository();
+		private PlayerRepository _playerRepo = new PlayerRepository();
 		private Player _player;
 		private Random _random = new Random();
 
@@ -60,7 +60,8 @@ namespace SwordSwinger
 					Experience = 0,
 					Level = 1,
 					Health = 100,
-					MaxHealth = 100
+					MaxHealth = 100,
+					CriticalStrikeChance = 20
 				};
 
 			SelectWeapon();

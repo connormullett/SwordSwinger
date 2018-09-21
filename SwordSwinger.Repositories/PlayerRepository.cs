@@ -9,7 +9,7 @@ namespace SwordSwinger.Repositories
 {
 	public class PlayerRepository
 	{
-		private readonly WeaponRepository _weaponRepo;
+		private WeaponRepository _weaponRepo = new WeaponRepository();
 		Random _random = new Random();
 
 		private List<string> _enemyNames = new List<string>()
@@ -20,7 +20,7 @@ namespace SwordSwinger.Repositories
 		public IPlayer CreateNewEnemy()
 		{
 			Array values = Enum.GetValues(typeof(WeaponType));
-			var weapon = _weaponRepo.CreateNewWeapon((WeaponType)values.GetValue(_random.Next(values.Length))); //busted
+			var weapon = _weaponRepo.CreateNewWeapon();
 
 			var enemy = new Enemy
 			{

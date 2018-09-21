@@ -9,11 +9,61 @@ namespace SwordSwinger.Repositories
 {
 	public class WeaponRepository
 	{
-		public Weapon CreateNewWeapon(WeaponType type)
+		public Weapon CreateNewWeapon(WeaponType weapon)
 		{
-			switch (type)
+			switch (weapon)
 			{
 				case WeaponType.Axe:
+					return new Axe
+					{
+						Name = "Axe",
+						WeaponType = weapon,
+						Damage = 100,
+						Durability = 150,
+						WeaponLevel = 1,
+						Experience = 0,
+					};
+				case WeaponType.Hammer:
+					return new Hammer
+					{
+						Name = "Hammer",
+						Damage = 120,
+						WeaponType = weapon,
+						Durability = 120,
+						WeaponLevel = 1,
+						Experience = 0
+					};
+				case WeaponType.Sword:
+					return new Sword
+					{
+						Name = "Sword",
+
+						WeaponType = WeaponType.Sword,
+						Damage = 130,
+						Durability = 90,
+						WeaponLevel = 1,
+						Experience = 0
+					};
+				default:
+					return new AR15
+					{
+						Name = "Assault Rifle 15",
+						WeaponType = WeaponType.AR15,
+						Damage = 200,
+						Durability = 300,
+						WeaponLevel = 100,
+						Experience = 0,
+						Description = "semi-full auto assault rifle 15 with high capacity belt loaded caliber clip.. and a bump stock"
+					};
+			}
+		}
+
+		public Weapon CreateNewWeapon()
+		{
+			var random = new Random();
+			switch (random.Next(4))
+			{
+				case 1:
 
 					var axe = new Axe
 					{
@@ -26,7 +76,7 @@ namespace SwordSwinger.Repositories
 					};
 					return axe;
 
-				case WeaponType.Hammer:
+				case 2:
 
 					var hammer = new Hammer
 					{
@@ -39,7 +89,7 @@ namespace SwordSwinger.Repositories
 					};
 					return hammer;
 
-				case WeaponType.Sword:
+				case 3:
 
 					var sword = new Sword
 					{

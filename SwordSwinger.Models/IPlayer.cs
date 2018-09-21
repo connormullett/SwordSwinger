@@ -25,7 +25,7 @@ namespace SwordSwinger.Models
 
 		int Level { get; set; }
 
-		int CriticalStrikeChange { get; set; }
+		int CriticalStrikeChance { get; set; }
 
 		void DoDamage(int dmg);
 
