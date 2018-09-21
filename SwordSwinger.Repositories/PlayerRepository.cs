@@ -31,7 +31,8 @@ namespace SwordSwinger.Repositories
 				Name = _enemyNames[_random.Next(_enemyNames.Count)],
 				Weapon = weapon,
 				Health = 100,
-				MaxHealth = 100
+				MaxHealth = 100,
+				MissChance = 10
 			};
 
 			return enemy;

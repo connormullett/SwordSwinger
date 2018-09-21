@@ -17,11 +17,15 @@ namespace SwordSwinger.Models
 		public int Experience { get; set; }
 		public int Level { get; set; }
 		public int CriticalStrikeChance { get; set; }
+		public int FleeChance { get; set; }
+		public int EnemiesSlain { get; set; }
+		public int MissChance { get; set; }
 
 		public void DoDamage(int weapnDmg)
 		{
 			var damage = weapnDmg - Armor;
 			Health -= damage;
+			Weapon.Durability -= 2;
 		}
 
 		public void GainLevel()
@@ -30,7 +34,7 @@ namespace SwordSwinger.Models
 			Experience = 0;
 			Health += 20;
 			MaxHealth += 20;
-			CriticalStrikeChange += 5;
+			CriticalStrikeChance += 5;
 			Armor += 5;
 		}
 
@@ -48,7 +52,8 @@ namespace SwordSwinger.Models
 				$"MaxHealth: {MaxHealth}\n" +
 				$"Exp: {Experience}\n" +
 				$"Level: {Level}\n" +
-				$"Critical Strike Chance: {CriticalStrikeChange}";
+				$"Critical Strike Chance: {CriticalStrikeChance}\n" +
+				$"Enemies Slain: {EnemiesSlain}";
 		}
 	}
 }

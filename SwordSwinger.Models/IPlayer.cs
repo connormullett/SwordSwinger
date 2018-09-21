@@ -27,6 +27,8 @@ namespace SwordSwinger.Models
 
 		int CriticalStrikeChance { get; set; }
 
+		int MissChance { get; set; }
+
 		void DoDamage(int dmg);
 
 		void GainLevel();
