@@ -1,5 +1,4 @@
-﻿using SwordSwinger.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,7 @@ namespace SwordSwinger.Models
 	public class Player : IPlayer
 	{
 		public string Name { get; set; }
-		public IWeapon Weapon { get; set; }
+		public Weapon Weapon { get; set; }
 		public int Lives { get; set; }
 		public int Armor { get; set; }
 		public int Health { get; set; }
@@ -19,9 +18,10 @@ namespace SwordSwinger.Models
 		public int Level { get; set; }
 		public int CriticalStrikeChange { get; set; }
 
-		public void DoDamage(int dmg)
+		public void DoDamage(int weapnDmg)
 		{
-			Health -= dmg;
+			var damage = weapnDmg - Armor;
+			Health -= damage;
 		}
 
 		public void GainLevel()
@@ -29,6 +29,26 @@ namespace SwordSwinger.Models
 			Level++;
 			Experience = 0;
 			Health += 20;
+			MaxHealth += 20;
+			CriticalStrikeChange += 5;
+			Armor += 5;
+		}
+
+		public override string ToString()
+		{
+			return $"Name: {Name}\n" +
+				$"Weapon: {Weapon.Name}\n" +
+				$"\tLevel: {Weapon.WeaponLevel}\n" +
+				$"\tExp: {Weapon.Experience}\n" +
+				$"\tDamage: {Weapon.Damage}\n" +
+				$"\tDurabity: {Weapon.Durability}\n" +
+				$"Lives: {Lives}\n" +
+				$"Armor: {Armor}\n" +
+				$"Health: {Health}\n" +
+				$"MaxHealth: {MaxHealth}\n" +
+				$"Exp: {Experience}\n" +
+				$"Level: {Level}\n" +
+				$"Critical Strike Chance: {CriticalStrikeChange}";
 		}
 	}
 }

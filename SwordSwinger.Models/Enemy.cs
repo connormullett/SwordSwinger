@@ -1,5 +1,4 @@
-﻿using SwordSwinger.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,7 @@ namespace SwordSwinger.Models
 	public class Enemy : IPlayer
 	{
 		public string Name { get; set; }
-		public IWeapon Weapon { get; set; }
+		public Weapon Weapon { get; set; }
 		public int Lives { get; set; }
 		public int Armor { get; set; }
 		public int Health { get; set; }

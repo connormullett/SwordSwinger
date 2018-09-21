@@ -1,5 +1,4 @@
-﻿using SwordSwinger.Interfaces;
-using SwordSwinger.Models;
+﻿using SwordSwinger.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +9,13 @@ namespace SwordSwinger.Repositories
 {
 	public class WeaponRepository
 	{
-		public IWeapon CreateNewWeapon(WeaponType type)
+		public Weapon CreateNewWeapon(WeaponType type)
 		{
 			switch (type)
 			{
 				case WeaponType.Axe:
 
-					return new Axe
+					var axe = new Axe
 					{
 						Name = "Axe",
 						Damage = 100,
@@ -25,10 +24,11 @@ namespace SwordSwinger.Repositories
 						WeaponLevel = 1,
 						Experience = 0
 					};
+					return axe;
 
 				case WeaponType.Hammer:
 
-					return new Hammer
+					var hammer = new Hammer
 					{
 						Name = "Hammer",
 						Damage = 120,
@@ -37,10 +37,11 @@ namespace SwordSwinger.Repositories
 						WeaponLevel = 1,
 						Experience = 0
 					};
+					return hammer;
 
 				case WeaponType.Sword:
 
-					return new Sword
+					var sword = new Sword
 					{
 						Name = "Sword",
 						WeaponType = WeaponType.Sword,
@@ -49,9 +50,10 @@ namespace SwordSwinger.Repositories
 						WeaponLevel = 1,
 						Experience = 0
 					};
+					return sword;
 
 				default:
-					return new AR15
+					var ar = new AR15
 					{
 						Name = "Assault Rifle 15",
 						WeaponType = WeaponType.AR15,
@@ -59,9 +61,9 @@ namespace SwordSwinger.Repositories
 						Durability = 300,
 						WeaponLevel = 100,
 						Experience = 0,
-						Description = "semi-full auto assault rifle 15 with high capacity caliber clip.. and a bump stock"
+						Description = "semi-full auto assault rifle 15 with high capacity belt loaded caliber clip.. and a bump stock"
 					};
-			
+					return ar;
 			}
 		}
 	}

@@ -1,5 +1,4 @@
-﻿using SwordSwinger.Interfaces;
-using SwordSwinger.Models;
+﻿using SwordSwinger.Models;
 using SwordSwinger.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ namespace SwordSwinger
 		private readonly WeaponRepository _weaponRepo = new WeaponRepository();
 		private readonly PlayerRepository _playerRepo = new PlayerRepository();
 		private Player _player;
+		private Random _random = new Random();
 
 		internal void Run()
 		{
@@ -67,6 +67,8 @@ namespace SwordSwinger
 
 			Console.Clear();
 			Console.WriteLine("Character Created\n");
+			Console.ReadKey();
+			MainMenu();
 			
 		}
 		
@@ -97,12 +99,19 @@ namespace SwordSwinger
 
 		private void Fight()
 		{
+			var enemy = _playerRepo.CreateNewEnemy();
 
+			Console.Clear();
+			Console.WriteLine($"You are challenged by {enemy.Name}");
+			Console.ReadKey();
 		}
 
 		private void SeeStats()
 		{
-
+			Console.Clear();
+			Console.WriteLine(_player);
+			Console.ReadKey();
+			MainMenu();
 		}
 
 		private int ParseInput()

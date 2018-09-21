@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwordSwinger.Interfaces
+namespace SwordSwinger.Models
 {
 
 	public interface IPlayer	
 	{
 		string Name { get; set; }
 
-		IWeapon Weapon { get; set; }
+		Weapon Weapon { get; set; }
 
 		int Lives { get; set; }
 

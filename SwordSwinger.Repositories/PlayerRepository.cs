@@ -1,5 +1,4 @@
-﻿using SwordSwinger.Interfaces;
-using SwordSwinger.Models;
+﻿using SwordSwinger.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +9,32 @@ namespace SwordSwinger.Repositories
 {
 	public class PlayerRepository
 	{
-		public IPlayer CreateNewEnemy(IWeapon weapon, string name)
+		private readonly WeaponRepository _weaponRepo;
+		Random _random = new Random();
+
+		private List<string> _enemyNames = new List<string>()
 		{
-			return new Enemy
+			"Bill The Snake Smasher ", "Nick the Tax Attorney", "Jim the Sword Slinger"
+		};
+
+		public IPlayer CreateNewEnemy()
+		{
+			Array values = Enum.GetValues(typeof(WeaponType));
+			var weapon = _weaponRepo.CreateNewWeapon((WeaponType)values.GetValue(_random.Next(values.Length))); //busted
+
+			var enemy = new Enemy
 			{
 				Lives = 1,
 				Armor = 30,
 				Experience = 0,
 				Level = 1,
-				Name = name,
+				Name = _enemyNames[_random.Next(_enemyNames.Count)],
 				Weapon = weapon,
 				Health = 100,
 				MaxHealth = 100
 			};
+
+			return enemy;
 		}
 	}
 }
