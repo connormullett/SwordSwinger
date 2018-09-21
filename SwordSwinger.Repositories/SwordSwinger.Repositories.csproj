@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2D4ABFBE-7FAC-4E49-97BE-8AEEED6931A3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>SwordSwinger</RootNamespace>
-    <AssemblyName>SwordSwinger</AssemblyName>
+    <ProjectGuid>{1955AA57-2467-4974-89A1-D2E4F356045B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SwordSwinger.Repositories</RootNamespace>
+    <AssemblyName>SwordSwinger.Repositories</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,12 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="ProgramUI.cs" />
+    <Compile Include="PlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeaponRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\SwordSwinger.Interfaces\SwordSwinger.Interfaces.csproj">
+      <Project>{A040D8DD-C7EA-42AF-B10D-324611202938}</Project>
+      <Name>SwordSwinger.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SwordSwinger.Models\SwordSwinger.Models.csproj">
+      <Project>{34DACD18-B928-464E-ADBA-54BA3A402496}</Project>
+      <Name>SwordSwinger.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace SwordSwinger
 {
-	internal class Program
+	public class ProgramUI
 	{
-		static void Main(string[] args)
+		internal void Run()
 		{
-			ProgramUI program = new ProgramUI();
-			program.Run();
+			throw new NotImplementedException();
+		}
+
+		private void MainMenu()
+		{
+
 		}
 	}
 }
