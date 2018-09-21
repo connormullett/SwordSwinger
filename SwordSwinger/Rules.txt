@@ -1,0 +1,9 @@
+﻿Welcome to Sword Slinger
+
+the Console Battle Arena that will eventually save to a txt file just like this
+
+Be Sure:
+	-Check your stats regularly after battle
+	-Try and find the hidden Weapon
+	-Switch Weapons when your durability runs low
+	-have fun!

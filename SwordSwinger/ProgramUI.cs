@@ -2,6 +2,7 @@
 using SwordSwinger.Repositories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace SwordSwinger
 		private void MainMenu()
 		{
 			Console.Clear();
-			Console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Exit");
+			Console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Rules\n6. Exit");
 
 			switch (ParseInput())
 			{
@@ -38,9 +39,12 @@ namespace SwordSwinger
 					SeeStats();
 					break;
 				case 4:
-					NewWeapon();
+					SelectWeapon();
 					break;
 				case 5:
+					Rules();
+					break;
+				case 6:
 					break;
 				default:
 					Console.WriteLine("Enter Valid Input");
@@ -50,9 +54,12 @@ namespace SwordSwinger
 			}
 		}
 
-		private void NewWeapon()
+		private void Rules()
 		{
-
+			Console.Clear();
+			Console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Rules.txt"));
+			Console.ReadKey();
+			MainMenu();
 		}
 
 		private void NewCharacter()
@@ -86,6 +93,13 @@ namespace SwordSwinger
 		
 		private void SelectWeapon()
 		{ 
+			if(_player is null)
+			{
+				Console.WriteLine("Create a Character First");
+				Console.ReadKey();
+				MainMenu();
+			}
+
 			Console.WriteLine("Choose your weapon\n1. Axe\n2. Hammer\n3. Sword");
 
 			switch (ParseInput())

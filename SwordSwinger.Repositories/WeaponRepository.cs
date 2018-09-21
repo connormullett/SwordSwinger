@@ -18,7 +18,7 @@ namespace SwordSwinger.Repositories
 					{
 						Name = "Axe",
 						WeaponType = weapon,
-						Damage = 10,
+						Damage = 25,
 						Durability = 150,
 						WeaponLevel = 1,
 						Experience = 0,
@@ -68,7 +68,7 @@ namespace SwordSwinger.Repositories
 					var axe = new Axe
 					{
 						Name = "Axe",
-						Damage = 10,
+						Damage = 25,
 						WeaponType = WeaponType.Axe,
 						Durability = 150,
 						WeaponLevel = 1,
