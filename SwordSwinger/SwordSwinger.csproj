@@ -50,5 +50,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SwordSwinger.Repositories\SwordSwinger.Repositories.csproj">
+      <Project>{1955AA57-2467-4974-89A1-D2E4F356045B}</Project>
+      <Name>SwordSwinger.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

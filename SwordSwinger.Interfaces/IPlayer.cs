@@ -19,11 +19,15 @@ namespace SwordSwinger.Interfaces
 
 		int Health { get; set; }
 
+		int MaxHealth { get; set; }
+
 		int Experience { get; set; }
 
 		int Level { get; set; }
 
-		void DoDamage();
+		int CriticalStrikeChange { get; set; }
+
+		void DoDamage(int dmg);
 
 		void GainLevel();
 	}

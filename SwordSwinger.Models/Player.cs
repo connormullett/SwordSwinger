@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SwordSwinger.Models
 {
-	public class Enemy : IPlayer
+	public class Player : IPlayer
 	{
 		public string Name { get; set; }
 		public IWeapon Weapon { get; set; }
@@ -26,12 +26,9 @@ namespace SwordSwinger.Models
 
 		public void GainLevel()
 		{
-			Experience = 0;
 			Level++;
-			MaxHealth += 20;
-			Health = MaxHealth;
-			Armor += 5;
-			Weapon.GainLevel();
+			Experience = 0;
+			Health += 20;
 		}
 	}
 }

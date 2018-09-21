@@ -10,8 +10,6 @@ namespace SwordSwinger.Repositories
 {
 	public class PlayerRepository
 	{
-		Random _random = new Random();
-
 		public IPlayer CreateNewEnemy(IWeapon weapon, string name)
 		{
 			return new Enemy
@@ -23,6 +21,7 @@ namespace SwordSwinger.Repositories
 				Name = name,
 				Weapon = weapon,
 				Health = 100,
+				MaxHealth = 100
 			};
 		}
 	}
