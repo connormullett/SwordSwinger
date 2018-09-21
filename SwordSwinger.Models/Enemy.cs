@@ -21,7 +21,8 @@ namespace SwordSwinger.Models
 
 		public void DoDamage(int dmg)
 		{
-			Health -= dmg;
+			var damage = dmg - Armor;
+			Health -= damage;
 		}
 
 		public void GainLevel()

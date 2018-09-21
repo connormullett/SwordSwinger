@@ -25,7 +25,7 @@ namespace SwordSwinger.Repositories
 			var enemy = new Enemy
 			{
 				Lives = 1,
-				Armor = 30,
+				Armor = 14,
 				Experience = 0,
 				Level = 1,
 				Name = _enemyNames[_random.Next(_enemyNames.Count)],

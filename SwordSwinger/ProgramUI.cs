@@ -24,7 +24,7 @@ namespace SwordSwinger
 		private void MainMenu()
 		{
 			Console.Clear();
-			Console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Exit");
+			Console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Exit");
 
 			switch (ParseInput())
 			{
@@ -32,12 +32,15 @@ namespace SwordSwinger
 					NewCharacter();
 					break;
 				case 2:
-					Fight();
+					NewFight();
 					break;
 				case 3:
 					SeeStats();
 					break;
 				case 4:
+					NewWeapon();
+					break;
+				case 5:
 					break;
 				default:
 					Console.WriteLine("Enter Valid Input");
@@ -45,6 +48,11 @@ namespace SwordSwinger
 					MainMenu();
 					break;
 			}
+		}
+
+		private void NewWeapon()
+		{
+
 		}
 
 		private void NewCharacter()
@@ -57,7 +65,7 @@ namespace SwordSwinger
 				{
 					Name = name,
 					Lives = 3,
-					Armor = 30,
+					Armor = 10,
 					Experience = 0,
 					Level = 1,
 					Health = 100,
@@ -101,7 +109,7 @@ namespace SwordSwinger
 			}
 		}
 
-		private void Fight()
+		private void NewFight()
 		{
 			if (_player == null)
 			{
@@ -113,44 +121,47 @@ namespace SwordSwinger
 			Console.Clear();
 			Console.WriteLine($"You are challenged by {_enemy.Name}");
 			Console.ReadKey();
+			Fight();
+		}
 
+		private void Fight()
+		{
 			Console.Clear();
 
-				DisplayFightStats();
-				Console.WriteLine("\n1. Fight\t2. Run");
-				switch (ParseInput())
-				{
-					case 1:
-						PlayerAttack();
+			DisplayFightStats();
+			Console.WriteLine("\n1. Fight\t2. Run");
+
+			switch (ParseInput())
+			{
+				case 1:
+					PlayerAttack();
+					EnemyAttack();
+					break;
+				case 2:
+					if (_random.Next(100) > _player.FleeChance)
+					{
+						Console.WriteLine("Couldn't Escape");
+						Console.ReadKey();
 						EnemyAttack();
-						break;
-					case 2:
-						if(_random.Next(100) > _player.FleeChance)
-						{
-							Console.WriteLine("Couldn't Escape");
-							Console.ReadKey();
-							EnemyAttack();
-						}
-						break;
-				}
+					}
+					break;
+			}
 		}
 
 		private void PlayerAttack()
 		{
 			Console.WriteLine($"Swung {_player.Weapon.Name}");
-			Console.ReadKey();
 
 			if (_random.Next(100) < _player.MissChance)
 			{
 				Console.WriteLine("Attack Missed");
 				Console.ReadKey();
-				EnemyAttack();
 			}
 
-			if (_random.Next(100) < _player.CriticalStrikeChance)
+			else if (_random.Next(100) < _player.CriticalStrikeChance)
 			{
 				_enemy.DoDamage(_player.Weapon.Damage + _player.CriticalStrikeChance);
-				Console.WriteLine($"{_enemy.Name} Damaged for { _player.Weapon.Damage + _player.CriticalStrikeChance}");
+				Console.WriteLine($"{_enemy.Name} Damaged for { _player.Weapon.Damage + _player.CriticalStrikeChance} with Critical Hit");
 				Console.ReadKey();
 			}
 			else
@@ -164,7 +175,7 @@ namespace SwordSwinger
 			{
 				Console.Clear();
 				_player.GainLevel();
-				Console.WriteLine("You Won");
+				Console.WriteLine($"You Won, Level Gained\nYou are now level {_player.Level}");
 				Console.ReadKey();
 				_player.EnemiesSlain++;
 				NextFight();
@@ -183,9 +194,18 @@ namespace SwordSwinger
 				Console.Clear();
 				Console.WriteLine("You Died");
 				Console.ReadKey();
-				_player = null;
-				MainMenu();
+				_player.Lives--;
+				_player.Health = 100;
+				if(_player.Lives == 0)
+				{
+					Console.WriteLine("No More Lives Remaining");
+					Console.ReadKey();
+					_player = null;
+					MainMenu();
+				}
 			}
+
+			Fight();
 		}
 
 		private void NextFight()
@@ -195,7 +215,7 @@ namespace SwordSwinger
 			switch (Console.ReadLine().ToLower())
 			{
 				case "y":
-					Fight();
+					NewFight();
 					break;
 				case "n":
 					MainMenu();

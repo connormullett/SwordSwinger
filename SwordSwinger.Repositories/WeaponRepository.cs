@@ -18,7 +18,7 @@ namespace SwordSwinger.Repositories
 					{
 						Name = "Axe",
 						WeaponType = weapon,
-						Damage = 100,
+						Damage = 10,
 						Durability = 150,
 						WeaponLevel = 1,
 						Experience = 0,
@@ -27,7 +27,7 @@ namespace SwordSwinger.Repositories
 					return new Hammer
 					{
 						Name = "Hammer",
-						Damage = 120,
+						Damage = 20,
 						WeaponType = weapon,
 						Durability = 120,
 						WeaponLevel = 1,
@@ -39,7 +39,7 @@ namespace SwordSwinger.Repositories
 						Name = "Sword",
 
 						WeaponType = WeaponType.Sword,
-						Damage = 130,
+						Damage = 30,
 						Durability = 90,
 						WeaponLevel = 1,
 						Experience = 0
@@ -49,9 +49,9 @@ namespace SwordSwinger.Repositories
 					{
 						Name = "Assault Rifle 15",
 						WeaponType = WeaponType.AR15,
-						Damage = 200,
+						Damage = 50,
 						Durability = 300,
-						WeaponLevel = 100,
+						WeaponLevel = 1,
 						Experience = 0,
 						Description = "semi-full auto assault rifle 15 with high capacity belt loaded caliber clip.. and a bump stock"
 					};
@@ -68,7 +68,7 @@ namespace SwordSwinger.Repositories
 					var axe = new Axe
 					{
 						Name = "Axe",
-						Damage = 100,
+						Damage = 10,
 						WeaponType = WeaponType.Axe,
 						Durability = 150,
 						WeaponLevel = 1,
@@ -81,7 +81,7 @@ namespace SwordSwinger.Repositories
 					var hammer = new Hammer
 					{
 						Name = "Hammer",
-						Damage = 120,
+						Damage = 20,
 						WeaponType = WeaponType.Hammer,
 						Durability = 120,
 						WeaponLevel = 1,
@@ -95,7 +95,7 @@ namespace SwordSwinger.Repositories
 					{
 						Name = "Sword",
 						WeaponType = WeaponType.Sword,
-						Damage = 130,
+						Damage = 30,
 						Durability = 90,
 						WeaponLevel = 1,
 						Experience = 0
@@ -107,7 +107,7 @@ namespace SwordSwinger.Repositories
 					{
 						Name = "Assault Rifle 15",
 						WeaponType = WeaponType.AR15,
-						Damage = 200,
+						Damage = 50,
 						Durability = 300,
 						WeaponLevel = 100,
 						Experience = 0,
