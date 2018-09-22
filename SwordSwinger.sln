@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwordSwinger.Models", "Swor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwordSwinger.Repositories", "SwordSwinger.Repositories\SwordSwinger.Repositories.csproj", "{1955AA57-2467-4974-89A1-D2E4F356045B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwordSwinger.Interfaces", "SwordSwinger.Interfaces\SwordSwinger.Interfaces.csproj", "{A040D8DD-C7EA-42AF-B10D-324611202938}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{1955AA57-2467-4974-89A1-D2E4F356045B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1955AA57-2467-4974-89A1-D2E4F356045B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1955AA57-2467-4974-89A1-D2E4F356045B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A040D8DD-C7EA-42AF-B10D-324611202938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A040D8DD-C7EA-42AF-B10D-324611202938}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A040D8DD-C7EA-42AF-B10D-324611202938}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A040D8DD-C7EA-42AF-B10D-324611202938}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

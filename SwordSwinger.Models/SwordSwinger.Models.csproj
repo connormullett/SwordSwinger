@@ -51,11 +51,5 @@
     <Compile Include="Sword.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SwordSwinger.Interfaces\SwordSwinger.Interfaces.csproj">
-      <Project>{a040d8dd-c7ea-42af-b10d-324611202938}</Project>
-      <Name>SwordSwinger.Interfaces</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

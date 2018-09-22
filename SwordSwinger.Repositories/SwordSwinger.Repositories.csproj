@@ -46,10 +46,6 @@
     <Compile Include="WeaponRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SwordSwinger.Interfaces\SwordSwinger.Interfaces.csproj">
-      <Project>{A040D8DD-C7EA-42AF-B10D-324611202938}</Project>
-      <Name>SwordSwinger.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SwordSwinger.Models\SwordSwinger.Models.csproj">
       <Project>{34DACD18-B928-464E-ADBA-54BA3A402496}</Project>
       <Name>SwordSwinger.Models</Name>
