@@ -250,8 +250,11 @@ namespace SwordSwinger
 
 		private void SeeStats()
 		{
+
 			Console.Clear();
 			Console.WriteLine(_player);
+			if (_player.Weapon.Name == "Assault Rifle 15")
+				Console.WriteLine(_player.Weapon.Description);
 			Console.ReadKey();
 			MainMenu();
 		}

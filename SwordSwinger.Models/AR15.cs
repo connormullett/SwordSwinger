@@ -8,8 +8,6 @@ namespace SwordSwinger.Models
 {
 	public class AR15 : Weapon
 	{
-		public string Description { get; set; }
-
 		public override void GainLevel()
 		{
 			WeaponLevel += 1;
