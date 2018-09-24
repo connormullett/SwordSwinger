@@ -18,6 +18,7 @@ namespace SwordSwinger.Models
 		public int Level { get; set; }
 		public int CriticalStrikeChance { get; set; }
 		public int MissChance { get; set; }
+		public int Gold { get; set; }
 
 		public void DoDamage(int dmg)
 		{

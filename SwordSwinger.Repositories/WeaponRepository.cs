@@ -9,6 +9,15 @@ namespace SwordSwinger.Repositories
 {
 	public class WeaponRepository
 	{
+		public bool CheckExperience(Weapon weapon)
+		{
+			if(weapon.Experience > 100)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public Weapon CreateNewWeapon(WeaponType weapon)
 		{
 			switch (weapon)

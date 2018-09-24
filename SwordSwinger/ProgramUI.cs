@@ -32,7 +32,7 @@ namespace SwordSwinger
 		private void MainMenu()
 		{
 			Console.Clear();
-			Console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Rules\n6. Exit");
+			Console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Rules\n6. Scores\n7. Exit");
 
 			switch (ParseInput())
 			{
@@ -47,11 +47,15 @@ namespace SwordSwinger
 					break;
 				case 4:
 					SelectWeapon();
+					MainMenu();
 					break;
 				case 5:
 					Rules();
 					break;
 				case 6:
+					Scores();
+					break;
+				case 7:
 					break;
 				default:
 					Console.WriteLine("Enter Valid Input");
@@ -59,6 +63,14 @@ namespace SwordSwinger
 					MainMenu();
 					break;
 			}
+		}
+
+		private void Scores()
+		{
+			Console.Clear();
+			Console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Scores.txt"));
+			Console.ReadKey();
+			MainMenu();
 		}
 
 		private void Rules()
@@ -99,7 +111,8 @@ namespace SwordSwinger
 		}
 		
 		private void SelectWeapon()
-		{ 
+		{
+			Console.Clear();
 			if(_player is null)
 			{
 				Console.WriteLine("Create a Character First");
@@ -170,6 +183,11 @@ namespace SwordSwinger
 					Console.ReadKey();
 					MainMenu();
 					break;
+				default:
+					Console.WriteLine("Enter Valid Input");
+					Console.ReadKey();
+					Fight();
+					break;
 			}
 		}
 
@@ -199,10 +217,28 @@ namespace SwordSwinger
 			if (_enemy.Health <= 0)
 			{
 				Console.Clear();
-				_player.GainLevel();
-				Console.WriteLine($"You Won, Level Gained\nYou are now level {_player.Level}");
+				Console.WriteLine($"You Won");
+				Console.WriteLine($"Gained {_enemy.Gold} Gold and {_enemy.Experience} experience for winning");
 				Console.ReadKey();
+				_player.Weapon.Experience += _enemy.Weapon.Experience;
+				_player.Experience += _enemy.Experience;
+				_player.Gold += _enemy.Gold;
 				_player.EnemiesSlain++;
+
+				if(_playerRepo.CheckExperience(_player))
+				{
+					_player.GainLevel();
+					Console.WriteLine("Player Level Gained");
+					Console.ReadKey();
+				}
+
+				if (_weaponRepo.CheckExperience(_player.Weapon))
+				{
+					_player.Weapon.GainLevel();
+					Console.WriteLine("Weapon Level Gained");
+					Console.ReadKey();
+				}
+
 				NextFight();
 			}
 		}
@@ -224,6 +260,8 @@ namespace SwordSwinger
 				if(_player.Lives == 0)
 				{
 					Console.WriteLine("No More Lives Remaining");
+					Console.WriteLine("Would you like to write your scores? (y/n)");
+					WriteScoresPrompt();
 					Console.ReadKey();
 					_player = null;
 					MainMenu();
@@ -252,6 +290,32 @@ namespace SwordSwinger
 			}
 		}
 
+		private void WriteScoresPrompt()
+		{
+			switch (Console.ReadLine().ToLower())
+			{
+				case "y":
+					WriteScores();
+					break;
+				case "n":
+					MainMenu();
+					break;
+				default:
+					Console.Clear();
+					Console.WriteLine("Enter valid Number");
+					Console.ReadKey();
+					break;
+			}
+		}
+
+		private void WriteScores()
+		{
+			using(StreamWriter file = new StreamWriter(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Scores.txt"))
+			{
+				file.WriteLine(_player);
+			}
+		}
+
 		private void DisplayFightStats()
 		{
 			Console.Clear();
@@ -261,6 +325,13 @@ namespace SwordSwinger
 
 		private void SeeStats()
 		{
+			if(_player is null)
+			{
+				Console.Clear();
+				Console.WriteLine("No stats for this character");
+				Console.ReadKey();
+				MainMenu();
+			}
 
 			Console.Clear();
 			Console.WriteLine(_player);
