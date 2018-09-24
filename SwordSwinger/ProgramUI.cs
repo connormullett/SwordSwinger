@@ -17,6 +17,13 @@ namespace SwordSwinger
 		private Enemy _enemy;
 		private Random _random = new Random();
 
+		public ProgramUI() { }
+
+		public ProgramUI(IPlayer player)
+		{
+			_player = (Player)player;
+		}
+
 		internal void Run()
 		{
 			MainMenu();
@@ -158,6 +165,10 @@ namespace SwordSwinger
 						Console.ReadKey();
 						EnemyAttack();
 					}
+					Console.Clear();
+					Console.WriteLine("Ran Away Safely");
+					Console.ReadKey();
+					MainMenu();
 					break;
 			}
 		}

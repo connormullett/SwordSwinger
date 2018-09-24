@@ -20,6 +20,7 @@ namespace SwordSwinger.Models
 		public int FleeChance { get; set; }
 		public int EnemiesSlain { get; set; }
 		public int MissChance { get; set; }
+		public int Gold { get; set; }
 
 		public void DoDamage(int weapnDmg)
 		{
@@ -53,6 +54,7 @@ namespace SwordSwinger.Models
 				$"Exp: {Experience}\n" +
 				$"Level: {Level}\n" +
 				$"Critical Strike Chance: {CriticalStrikeChance}\n" +
+				$"Gold: {Gold}\n" +
 				$"Enemies Slain: {EnemiesSlain}";
 		}
 	}

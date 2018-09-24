@@ -29,6 +29,8 @@ namespace SwordSwinger.Models
 
 		int MissChance { get; set; }
 
+		int Gold { get; set; }
+
 		void DoDamage(int dmg);
 
 		void GainLevel();
