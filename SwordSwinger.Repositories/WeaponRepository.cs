@@ -60,12 +60,12 @@ namespace SwordSwinger.Repositories
 
 		public Weapon CreateNewWeapon()
 		{
-			var random = new Random();
-			switch (random.Next(4))
+			var w = (WeaponType)(new Random().Next(4));
+			switch (w)
 			{
-				case 1:
+				case WeaponType.Axe:
 
-					var axe = new Axe
+					return new Axe
 					{
 						Name = "Axe",
 						Damage = 25,
@@ -74,11 +74,10 @@ namespace SwordSwinger.Repositories
 						WeaponLevel = 1,
 						Experience = 0
 					};
-					return axe;
 
-				case 2:
+				case WeaponType.Hammer:
 
-					var hammer = new Hammer
+					return new Hammer
 					{
 						Name = "Hammer",
 						Damage = 20,
@@ -87,11 +86,10 @@ namespace SwordSwinger.Repositories
 						WeaponLevel = 1,
 						Experience = 0
 					};
-					return hammer;
 
-				case 3:
+				case WeaponType.Sword:
 
-					var sword = new Sword
+					return new Sword
 					{
 						Name = "Sword",
 						WeaponType = WeaponType.Sword,
@@ -100,10 +98,9 @@ namespace SwordSwinger.Repositories
 						WeaponLevel = 1,
 						Experience = 0
 					};
-					return sword;
 
 				default:
-					var ar = new AR15
+					return new AR15
 					{
 						Name = "Assault Rifle 15",
 						WeaponType = WeaponType.AR15,
@@ -113,7 +110,6 @@ namespace SwordSwinger.Repositories
 						Experience = 0,
 						Description = "semi-full auto assault rifle 15 with high capacity belt loaded caliber clip.. and a bump stock"
 					};
-					return ar;
 			}
 		}
 	}
