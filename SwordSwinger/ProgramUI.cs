@@ -14,16 +14,30 @@ namespace SwordSwinger
 		private readonly IConsole _console;
 		private WeaponRepository _weaponRepo = new WeaponRepository();
 		private PlayerRepository _playerRepo = new PlayerRepository();
-		private Player _player;
-		private Enemy _enemy;
 		private Random _random = new Random();
+
+		public Player _player;
+		public Enemy _enemy;
 
 		public ProgramUI(IConsole console)
 		{
 			_console = console;
 		}
 
-		internal void Run()
+		public ProgramUI(IConsole console, IPlayer player)
+		{
+			_console = console;
+			_player = (Player)player;
+		}
+
+		public ProgramUI(IConsole console, IPlayer player, IPlayer enemy)
+		{
+			_console = console;
+			_player = (Player)player;
+			_enemy = (Enemy)enemy;
+		}
+
+		public void Run()
 		{
 			MainMenu();
 		}
@@ -31,7 +45,7 @@ namespace SwordSwinger
 		private void MainMenu()
 		{
 			_console.Clear();
-			_console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Rules\n6. Scores\n7. Exit");
+			_console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. Shop\n4. See Stats\n5. Switch Weapon\n6. Rules\n7. Scores\n8. Exit");
 
 			switch (ParseInput())
 			{
@@ -39,22 +53,33 @@ namespace SwordSwinger
 					NewCharacter();
 					break;
 				case 2:
-					NewFight();
+					if(_player == null)
+					{
+						NullCharacterPrompt();
+					}
+					else
+					{
+						NewFight();
+					}
 					break;
 				case 3:
-					SeeStats();
+					Shop();
 					break;
 				case 4:
+					SeeStats();
+					break;
+				case 5:
 					SelectWeapon();
 					MainMenu();
 					break;
-				case 5:
+				case 6:
 					Rules();
 					break;
-				case 6:
+				case 7:
 					Scores();
 					break;
-				case 7:
+				case 8:
+					Exit();
 					break;
 				default:
 					_console.WriteLine("Enter Valid Input");
@@ -62,6 +87,21 @@ namespace SwordSwinger
 					MainMenu();
 					break;
 			}
+		}
+
+		private void NullCharacterPrompt()
+		{
+			_console.Clear();
+			_console.WriteLine("Make a Character");
+			_console.ReadKey();
+			MainMenu();
+		}
+
+		private void Shop()
+		{
+			_console.Clear();
+
+			MainMenu();
 		}
 
 		private void Scores()
@@ -137,6 +177,7 @@ namespace SwordSwinger
 					break;
 				default:
 					_console.WriteLine("Enter Valid Input");
+					_console.ReadKey();
 					SelectWeapon();
 					break;
 			}
@@ -144,11 +185,6 @@ namespace SwordSwinger
 
 		private void NewFight()
 		{
-			if (_player == null)
-			{
-				NewCharacter();
-			}
-
 			_enemy = (Enemy)_playerRepo.CreateNewEnemy();
 
 			_console.Clear();
@@ -188,6 +224,8 @@ namespace SwordSwinger
 					Fight();
 					break;
 			}
+
+			if (_enemy.Health > 0) Fight();
 		}
 
 		private void PlayerAttack()
@@ -266,8 +304,6 @@ namespace SwordSwinger
 					MainMenu();
 				}
 			}
-
-			Fight();
 		}
 
 		private void NextFight()
@@ -331,13 +367,15 @@ namespace SwordSwinger
 				_console.ReadKey();
 				MainMenu();
 			}
-
-			_console.Clear();
-			_console.WriteLine(_player.ToString());
-			if (_player.Weapon.Name == "Assault Rifle 15")
-				_console.WriteLine(_player.Weapon.Description);
-			_console.ReadKey();
-			MainMenu();
+			else
+			{
+				_console.Clear();
+				_console.WriteLine(_player.ToString());
+				if (_player.Weapon.Name == "Assault Rifle 15")
+					_console.WriteLine(_player.Weapon.Description);
+				_console.ReadKey();
+				MainMenu();
+			}
 		}
 
 		private int ParseInput()
@@ -345,6 +383,11 @@ namespace SwordSwinger
 			if (int.TryParse(_console.ReadLine(), out int input))
 				return input;
 			else return 0;
+		}
+
+		private void Exit()
+		{
+
 		}
 	}
 }
