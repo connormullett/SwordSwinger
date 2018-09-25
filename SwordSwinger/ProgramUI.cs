@@ -11,17 +11,16 @@ namespace SwordSwinger
 {
 	public class ProgramUI
 	{
+		private readonly IConsole _console;
 		private WeaponRepository _weaponRepo = new WeaponRepository();
 		private PlayerRepository _playerRepo = new PlayerRepository();
 		private Player _player;
 		private Enemy _enemy;
 		private Random _random = new Random();
 
-		public ProgramUI() { }
-
-		public ProgramUI(IPlayer player)
+		public ProgramUI(IConsole console)
 		{
-			_player = (Player)player;
+			_console = console;
 		}
 
 		internal void Run()
@@ -31,8 +30,8 @@ namespace SwordSwinger
 
 		private void MainMenu()
 		{
-			Console.Clear();
-			Console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Rules\n6. Scores\n7. Exit");
+			_console.Clear();
+			_console.WriteLine("WELCOME TO SWORD SWINGERS ARENA \n1. New Character\n2. Fight!\n3. See Stats\n4. Switch Weapon\n5. Rules\n6. Scores\n7. Exit");
 
 			switch (ParseInput())
 			{
@@ -58,8 +57,8 @@ namespace SwordSwinger
 				case 7:
 					break;
 				default:
-					Console.WriteLine("Enter Valid Input");
-					Console.ReadKey();
+					_console.WriteLine("Enter Valid Input");
+					_console.ReadKey();
 					MainMenu();
 					break;
 			}
@@ -67,25 +66,25 @@ namespace SwordSwinger
 
 		private void Scores()
 		{
-			Console.Clear();
-			Console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Scores.txt"));
-			Console.ReadKey();
+			_console.Clear();
+			_console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Scores.txt"));
+			_console.ReadKey();
 			MainMenu();
 		}
 
 		private void Rules()
 		{
-			Console.Clear();
-			Console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Rules.txt"));
-			Console.ReadKey();
+			_console.Clear();
+			_console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Rules.txt"));
+			_console.ReadKey();
 			MainMenu();
 		}
 
 		private void NewCharacter()
 		{
-			Console.Clear();
-			Console.Write("Enter Name: ");
-			var name = Console.ReadLine();
+			_console.Clear();
+			_console.Write("Enter Name: ");
+			var name = _console.ReadLine();
 
 			_player = new Player
 				{
@@ -103,24 +102,24 @@ namespace SwordSwinger
 
 			SelectWeapon();
 
-			Console.Clear();
-			Console.WriteLine("Character Created\n");
-			Console.ReadKey();
+			_console.Clear();
+			_console.WriteLine("Character Created\n");
+			_console.ReadKey();
 			MainMenu();
 			
 		}
 		
 		private void SelectWeapon()
 		{
-			Console.Clear();
+			_console.Clear();
 			if(_player is null)
 			{
-				Console.WriteLine("Create a Character First");
-				Console.ReadKey();
+				_console.WriteLine("Create a Character First");
+				_console.ReadKey();
 				MainMenu();
 			}
 
-			Console.WriteLine("Choose your weapon\n1. Axe\n2. Hammer\n3. Sword");
+			_console.WriteLine("Choose your weapon\n1. Axe\n2. Hammer\n3. Sword");
 
 			switch (ParseInput())
 			{
@@ -137,7 +136,7 @@ namespace SwordSwinger
 					_player.Weapon = _weaponRepo.CreateNewWeapon(WeaponType.AR15);
 					break;
 				default:
-					Console.WriteLine("Enter Valid Input");
+					_console.WriteLine("Enter Valid Input");
 					SelectWeapon();
 					break;
 			}
@@ -152,18 +151,18 @@ namespace SwordSwinger
 
 			_enemy = (Enemy)_playerRepo.CreateNewEnemy();
 
-			Console.Clear();
-			Console.WriteLine($"You are challenged by {_enemy.Name}");
-			Console.ReadKey();
+			_console.Clear();
+			_console.WriteLine($"You are challenged by {_enemy.Name}");
+			_console.ReadKey();
 			Fight();
 		}
 
 		private void Fight()
 		{
-			Console.Clear();
+			_console.Clear();
 
 			DisplayFightStats();
-			Console.WriteLine("\n1. Fight\t2. Run");
+			_console.WriteLine("\n1. Fight\t2. Run");
 
 			switch (ParseInput())
 			{
@@ -174,18 +173,18 @@ namespace SwordSwinger
 				case 2:
 					if (_random.Next(100) > _player.FleeChance)
 					{
-						Console.WriteLine("Couldn't Escape");
-						Console.ReadKey();
+						_console.WriteLine("Couldn't Escape");
+						_console.ReadKey();
 						EnemyAttack();
 					}
-					Console.Clear();
-					Console.WriteLine("Ran Away Safely");
-					Console.ReadKey();
+					_console.Clear();
+					_console.WriteLine("Ran Away Safely");
+					_console.ReadKey();
 					MainMenu();
 					break;
 				default:
-					Console.WriteLine("Enter Valid Input");
-					Console.ReadKey();
+					_console.WriteLine("Enter Valid Input");
+					_console.ReadKey();
 					Fight();
 					break;
 			}
@@ -193,33 +192,33 @@ namespace SwordSwinger
 
 		private void PlayerAttack()
 		{
-			Console.WriteLine($"Swung {_player.Weapon.Name}");
+			_console.WriteLine($"Swung {_player.Weapon.Name}");
 
 			if (_random.Next(100) < _player.MissChance)
 			{
-				Console.WriteLine("Attack Missed");
-				Console.ReadKey();
+				_console.WriteLine("Attack Missed");
+				_console.ReadKey();
 			}
 
 			else if (_random.Next(100) < _player.CriticalStrikeChance)
 			{
 				_enemy.DoDamage(_player.Weapon.Damage + _player.CriticalStrikeChance);
-				Console.WriteLine($"{_enemy.Name} Damaged for { _player.Weapon.Damage + _player.CriticalStrikeChance} with Critical Hit");
-				Console.ReadKey();
+				_console.WriteLine($"{_enemy.Name} Damaged for { _player.Weapon.Damage + _player.CriticalStrikeChance} with Critical Hit");
+				_console.ReadKey();
 			}
 			else
 			{
 				_enemy.DoDamage(_player.Weapon.Damage);
-				Console.WriteLine($"{_enemy.Name} Damaged for {_player.Weapon.Damage}");
-				Console.ReadKey();
+				_console.WriteLine($"{_enemy.Name} Damaged for {_player.Weapon.Damage}");
+				_console.ReadKey();
 			}
 
 			if (_enemy.Health <= 0)
 			{
-				Console.Clear();
-				Console.WriteLine($"You Won");
-				Console.WriteLine($"Gained {_enemy.Gold} Gold and {_enemy.Experience} experience for winning");
-				Console.ReadKey();
+				_console.Clear();
+				_console.WriteLine($"You Won");
+				_console.WriteLine($"Gained {_enemy.Gold} Gold and {_enemy.Experience} experience for winning");
+				_console.ReadKey();
 				_player.Weapon.Experience += _enemy.Weapon.Experience;
 				_player.Experience += _enemy.Experience;
 				_player.Gold += _enemy.Gold;
@@ -228,15 +227,15 @@ namespace SwordSwinger
 				if(_playerRepo.CheckExperience(_player))
 				{
 					_player.GainLevel();
-					Console.WriteLine("Player Level Gained");
-					Console.ReadKey();
+					_console.WriteLine("Player Level Gained");
+					_console.ReadKey();
 				}
 
 				if (_weaponRepo.CheckExperience(_player.Weapon))
 				{
 					_player.Weapon.GainLevel();
-					Console.WriteLine("Weapon Level Gained");
-					Console.ReadKey();
+					_console.WriteLine("Weapon Level Gained");
+					_console.ReadKey();
 				}
 
 				NextFight();
@@ -245,24 +244,24 @@ namespace SwordSwinger
 
 		private void EnemyAttack()
 		{
-			Console.WriteLine($"{_enemy.Name} Swung {_enemy.Weapon.Name}");
+			_console.WriteLine($"{_enemy.Name} Swung {_enemy.Weapon.Name}");
 			_player.DoDamage(_enemy.Weapon.Damage);
-			Console.WriteLine($"{_player.Name} Damaged for {_enemy.Weapon.Damage}");
-			Console.ReadKey();
+			_console.WriteLine($"{_player.Name} Damaged for {_enemy.Weapon.Damage}");
+			_console.ReadKey();
 
 			if (_player.Health <= 0)
 			{
-				Console.Clear();
-				Console.WriteLine("You Died");
-				Console.ReadKey();
+				_console.Clear();
+				_console.WriteLine("You Died");
+				_console.ReadKey();
 				_player.Lives--;
 				_player.Health = 100;
 				if(_player.Lives == 0)
 				{
-					Console.WriteLine("No More Lives Remaining");
-					Console.WriteLine("Would you like to write your scores? (y/n)");
+					_console.WriteLine("No More Lives Remaining");
+					_console.WriteLine("Would you like to write your scores? (y/n)");
 					WriteScoresPrompt();
-					Console.ReadKey();
+					_console.ReadKey();
 					_player = null;
 					MainMenu();
 				}
@@ -273,9 +272,9 @@ namespace SwordSwinger
 
 		private void NextFight()
 		{
-			Console.Clear();
-			Console.WriteLine("Next Fight (y/n) ");
-			switch (Console.ReadLine().ToLower())
+			_console.Clear();
+			_console.WriteLine("Next Fight (y/n) ");
+			switch (_console.ReadLine().ToLower())
 			{
 				case "y":
 					NewFight();
@@ -284,7 +283,7 @@ namespace SwordSwinger
 					MainMenu();
 					break;
 				default:
-					Console.WriteLine("Enter Valid Input");
+					_console.WriteLine("Enter Valid Input");
 					NextFight();
 					break;
 			}
@@ -292,7 +291,7 @@ namespace SwordSwinger
 
 		private void WriteScoresPrompt()
 		{
-			switch (Console.ReadLine().ToLower())
+			switch (_console.ReadLine().ToLower())
 			{
 				case "y":
 					WriteScores();
@@ -301,9 +300,9 @@ namespace SwordSwinger
 					MainMenu();
 					break;
 				default:
-					Console.Clear();
-					Console.WriteLine("Enter valid Number");
-					Console.ReadKey();
+					_console.Clear();
+					_console.WriteLine("Enter valid Number");
+					_console.ReadKey();
 					break;
 			}
 		}
@@ -318,8 +317,8 @@ namespace SwordSwinger
 
 		private void DisplayFightStats()
 		{
-			Console.Clear();
-			Console.WriteLine($"{_player.Name}\t\t{_enemy.Name}\n" +
+			_console.Clear();
+			_console.WriteLine($"{_player.Name}\t\t{_enemy.Name}\n" +
 				$"Health: {_player.Health}\t{_enemy.Health}");
 		}
 
@@ -327,23 +326,23 @@ namespace SwordSwinger
 		{
 			if(_player is null)
 			{
-				Console.Clear();
-				Console.WriteLine("No stats for this character");
-				Console.ReadKey();
+				_console.Clear();
+				_console.WriteLine("No stats for this character");
+				_console.ReadKey();
 				MainMenu();
 			}
 
-			Console.Clear();
-			Console.WriteLine(_player);
+			_console.Clear();
+			_console.WriteLine(_player.ToString());
 			if (_player.Weapon.Name == "Assault Rifle 15")
-				Console.WriteLine(_player.Weapon.Description);
-			Console.ReadKey();
+				_console.WriteLine(_player.Weapon.Description);
+			_console.ReadKey();
 			MainMenu();
 		}
 
 		private int ParseInput()
 		{
-			if (int.TryParse(Console.ReadLine(), out int input))
+			if (int.TryParse(_console.ReadLine(), out int input))
 				return input;
 			else return 0;
 		}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwordSwinger.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace SwordSwinger
 	{
 		static void Main(string[] args)
 		{
-			ProgramUI program = new ProgramUI();
+			ProgramUI program = new ProgramUI(new RealConsole());
 			program.Run();
 		}
 	}
