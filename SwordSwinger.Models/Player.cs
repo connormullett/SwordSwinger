@@ -22,6 +22,10 @@ namespace SwordSwinger.Models
 		public int MissChance { get; set; }
 		public int Gold { get; set; }
 
+		public List<IShopItem> _inventory = new List<IShopItem>();
+
+		public void AddItem(IShopItem model) => _inventory.Add(model);
+
 		public void DoDamage(int weapnDmg)
 		{
 			var damage = weapnDmg - Armor;

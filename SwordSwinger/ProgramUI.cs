@@ -30,13 +30,6 @@ namespace SwordSwinger
 			_player = (Player)player;
 		}
 
-		public ProgramUI(IConsole console, IPlayer player, IPlayer enemy)
-		{
-			_console = console;
-			_player = (Player)player;
-			_enemy = (Enemy)enemy;
-		}
-
 		public void Run()
 		{
 			MainMenu();
@@ -63,7 +56,7 @@ namespace SwordSwinger
 					}
 					break;
 				case 3:
-					Shop();
+					CheckCharacter();
 					break;
 				case 4:
 					SeeStats();
@@ -97,11 +90,105 @@ namespace SwordSwinger
 			MainMenu();
 		}
 
-		private void Shop()
+		private void CheckCharacter()
 		{
 			_console.Clear();
 
+			if (_player == null)
+			{
+				_console.WriteLine("Can't Shop if you dont have a character");
+				_console.ReadKey();
+				MainMenu();
+			}
+			else
+			{
+				Shop();
+			}
+		}
+
+		private void Shop()
+		{
+			_console.WriteLine($"Concession Stand\nGold: {_player.Gold}\n1. elixer of speed 20g\n2. Potion 50g\n3. Power Up 100g\n4. Main Menu");
+			switch (ParseInput())
+			{
+				case 1:
+					if(CheckGold(20))
+					{
+						_player.Gold -= 20;
+						var elixer = new Elixer
+						{
+							Name = "Elixer",
+							GoldValue = 20,
+							Description = "An elixer that improves flee chance",
+							ItemType = ItemType.Elixer
+						};
+						_player.AddItem(elixer);
+
+					}
+					else
+					{
+						_console.Clear();
+						_console.WriteLine("You need more Gold");
+						_console.ReadKey();
+					}
+					Shop();
+					break;
+				case 2:
+					if (CheckGold(50))
+					{
+						_player.Gold -= 50;
+						Potion potion = new Potion()
+						{
+							Name = "Potion of Health",
+							GoldValue = 50,
+							Description = "A Potion to heal you during battle",
+							ItemType = ItemType.Potion
+						};
+						_player.AddItem(potion);
+					}
+					else
+					{
+						_console.Clear();
+						_console.WriteLine("You need more gold");
+						_console.ReadKey();
+					}
+					Shop();
+					break;
+				case 3:
+					if (CheckGold(100))
+					{
+						_player.Gold -= 100;
+						PowerUp powerUp = new PowerUp
+						{
+							Name = "Power Up",
+							GoldValue = 100,
+							Description = "Use to Gain Power",
+							ItemType = ItemType.PowerUp
+						};
+						_player.AddItem(powerUp);
+					}
+					else
+					{
+						_console.Clear();
+						_console.WriteLine("You need more gold");
+						_console.ReadKey();
+					}
+					Shop();
+					break;
+				case 4:
+					MainMenu();
+					break;
+				default:
+					break;
+			}
+
 			MainMenu();
+		}
+
+		private bool CheckGold(int value)
+		{
+			if (_player.Gold > value) return true;
+			else return false;
 		}
 
 		private void Scores()
@@ -127,18 +214,18 @@ namespace SwordSwinger
 			var name = _console.ReadLine();
 
 			_player = new Player
-				{
-					Name = name,
-					Lives = 3,
-					Armor = 10,
-					Experience = 0,
-					Level = 1,
-					Health = 100,
-					MaxHealth = 100,
-					CriticalStrikeChance = 20,
-					MissChance = 10,
-					EnemiesSlain = 0
-				};
+			{
+				Name = name,
+				Lives = 3,
+				Armor = 10,
+				Experience = 0,
+				Level = 1,
+				Health = 100,
+				MaxHealth = 100,
+				CriticalStrikeChance = 20,
+				MissChance = 10,
+				EnemiesSlain = 0
+			};
 
 			SelectWeapon();
 
@@ -198,7 +285,7 @@ namespace SwordSwinger
 			_console.Clear();
 
 			DisplayFightStats();
-			_console.WriteLine("\n1. Fight\t2. Run");
+			_console.WriteLine("\n1. Fight\t2. Run\t3. Inventory");
 
 			switch (ParseInput())
 			{
@@ -218,6 +305,9 @@ namespace SwordSwinger
 					_console.ReadKey();
 					MainMenu();
 					break;
+				case 3:
+					ShowInventory();
+					break;
 				default:
 					_console.WriteLine("Enter Valid Input");
 					_console.ReadKey();
@@ -226,6 +316,27 @@ namespace SwordSwinger
 			}
 
 			if (_enemy.Health > 0) Fight();
+		}
+
+		private void ShowInventory()
+		{
+			if(_player._inventory == null)
+			{
+				_console.Clear();
+				_console.WriteLine("No Items");
+				_console.ReadKey();
+			}
+			else
+			{
+
+				Console.Clear();
+				var iterator = 1;
+					foreach(IShopItem i in _player._inventory)
+					{
+						_console.WriteLine($"{iterator++}: {i.Name}");
+					}
+				_console.ReadKey();
+			}
 		}
 
 		private void PlayerAttack()
@@ -373,6 +484,15 @@ namespace SwordSwinger
 				_console.WriteLine(_player.ToString());
 				if (_player.Weapon.Name == "Assault Rifle 15")
 					_console.WriteLine(_player.Weapon.Description);
+
+				if(_player._inventory != null)
+				{
+					foreach(IShopItem i in _player._inventory)
+					{
+						Console.WriteLine(i.Name);
+					}
+				}
+
 				_console.ReadKey();
 				MainMenu();
 			}

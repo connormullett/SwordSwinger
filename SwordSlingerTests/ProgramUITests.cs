@@ -119,7 +119,37 @@ namespace SwordSlingerTests
 		[TestMethod]
 		public void ProgramUI_SelectWeapon_ShouldBeDifferentThanInjectedWeapon()
 		{
+			var weapon = new Axe()
+			{
+				Name = "TestingName",
+				WeaponType = WeaponType.Axe,
+				Damage = 25,
+				Durability = 150,
+				WeaponLevel = 1,
+				Experience = 0,
+			};
 
+			var player = new Player
+			{
+				Lives = 1,
+				Armor = 14,
+				Experience = 0,
+				Level = 1,
+				Name = "bill",
+				Weapon = weapon,
+				Health = 100,
+				MaxHealth = 100,
+				MissChance = 10,
+				Gold = 0
+			};
+
+			var mock = new MockConsole(new string[] { "5", "1", "8" });
+			var program = new ProgramUI(mock, player);
+
+			var actual = program._player.Weapon.WeaponType;
+			var expected = WeaponType.Axe;
+
+			Assert.AreEqual(actual, expected);
 		}
 	}
 }
