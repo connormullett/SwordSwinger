@@ -14,6 +14,7 @@ namespace SwordSwinger
 		private readonly IConsole _console;
 		private WeaponRepository _weaponRepo = new WeaponRepository();
 		private PlayerRepository _playerRepo = new PlayerRepository();
+		private ItemRepository _itemRepository = new ItemRepository();
 		private Random _random = new Random();
 
 		public Player _player;
@@ -300,10 +301,13 @@ namespace SwordSwinger
 						_console.ReadKey();
 						EnemyAttack();
 					}
-					_console.Clear();
-					_console.WriteLine("Ran Away Safely");
-					_console.ReadKey();
-					MainMenu();
+					else
+					{
+						_console.Clear();
+						_console.WriteLine("Ran Away Safely");
+						_console.ReadKey();
+						MainMenu();
+					}
 					break;
 				case 3:
 					ShowInventory();

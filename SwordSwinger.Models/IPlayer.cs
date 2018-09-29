@@ -31,6 +31,8 @@ namespace SwordSwinger.Models
 
 		int Gold { get; set; }
 
+		int FleeChance { get; set; }
+
 		void DoDamage(int dmg);
 
 		void GainLevel();

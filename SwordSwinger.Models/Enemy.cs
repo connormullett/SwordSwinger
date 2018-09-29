@@ -19,6 +19,7 @@ namespace SwordSwinger.Models
 		public int CriticalStrikeChance { get; set; }
 		public int MissChance { get; set; }
 		public int Gold { get; set; }
+		public int FleeChance { get; set; }
 		public ICollection<object> Inventory { get; set; }
 
 		public void DoDamage(int dmg)
