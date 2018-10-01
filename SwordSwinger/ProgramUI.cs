@@ -196,7 +196,7 @@ namespace SwordSwinger
 		private void Scores()
 		{
 			_console.Clear();
-			_console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Scores.txt"));
+			_console.WriteLine(File.ReadAllText(@"../../Scores.txt"));
 			_console.ReadKey();
 			MainMenu();
 		}
@@ -204,7 +204,7 @@ namespace SwordSwinger
 		private void Rules()
 		{
 			_console.Clear();
-			_console.WriteLine(File.ReadAllText(@"C:\Users\Connor Mullett\Desktop\DotNetProjects\Projects\SwordSwinger\SwordSwinger\Rules.txt"));
+			_console.WriteLine(File.ReadAllText(@"../../Rules.txt"));
 			_console.ReadKey();
 			MainMenu();
 		}
