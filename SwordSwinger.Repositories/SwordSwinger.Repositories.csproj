@@ -46,7 +46,6 @@
     <Compile Include="PlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RealConsole.cs" />
-    <Compile Include="ShopRepository.cs" />
     <Compile Include="WeaponRepository.cs" />
   </ItemGroup>
   <ItemGroup>

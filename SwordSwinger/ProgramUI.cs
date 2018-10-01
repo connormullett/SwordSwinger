@@ -109,6 +109,7 @@ namespace SwordSwinger
 
 		private void Shop()
 		{
+			_console.Clear();
 			_console.WriteLine($"Concession Stand\nGold: {_player.Gold}\n1. elixer of speed 20g\n2. Potion 50g\n3. Power Up 100g\n4. Main Menu");
 			switch (ParseInput())
 			{
@@ -334,12 +335,25 @@ namespace SwordSwinger
 			{
 
 				Console.Clear();
+
 				var iterator = 1;
-					foreach(IShopItem i in _player._inventory)
-					{
-						_console.WriteLine($"{iterator++}: {i.Name}");
-					}
-				_console.ReadKey();
+				foreach (IShopItem i in _player._inventory)
+				{
+					_console.WriteLine($"{iterator++}: {i.Name}");
+				}
+
+				_console.WriteLine("Select Item");
+				var itemSelection = ParseInput();
+
+				if(itemSelection - 1 > _player._inventory.Count || itemSelection == 0)
+				{
+					InvalidInput();
+				}
+				else
+				{
+					var selectedItem = _player._inventory[itemSelection - 1];
+					_itemRepository.UseItem(_player, selectedItem);
+				}
 			}
 		}
 
@@ -507,6 +521,13 @@ namespace SwordSwinger
 			if (int.TryParse(_console.ReadLine(), out int input))
 				return input;
 			else return 0;
+		}
+
+		private void InvalidInput()
+		{
+			_console.Clear();
+			_console.WriteLine("Invalid Input");
+			_console.Clear();
 		}
 
 		private void Exit()

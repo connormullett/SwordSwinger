@@ -46,7 +46,6 @@
     <Compile Include="Elixer.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Hammer.cs" />
-    <Compile Include="IItem.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IShopItem.cs" />
     <Compile Include="Player.cs" />
